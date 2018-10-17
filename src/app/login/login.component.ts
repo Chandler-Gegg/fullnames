@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
   email: string;
   password: string;
   constructor(
+    //should probably be called AuthService
     private loginService: LoginService,
     private router: Router,
   ) { }
@@ -19,6 +20,8 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginEmail(): void {
+    //might do a regex to make sure @ and .com is included
+    //might also validate email
     if (this.validateForm(this.email, this.password)) {
       this.emailLogin(this.email, this.password);
     }

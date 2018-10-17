@@ -6,7 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HistoryComponent } from './history/history.component';
 
-import { firebaseConfig } from '../environments/environment';
+import { config } from '../environments/environments';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
@@ -14,6 +14,9 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import {FormsModule} from '@angular/forms';
 
 import { LoginService } from './login/login.service';
+//if we don't get this we get an error: 
+import { DashboardService } from './dashboard/dashboard.service';
+
 import { AppRoutingModule } from './app-routing.module';
 
 import {AuthGuard} from './login/auth.guard';
@@ -28,13 +31,13 @@ import {AuthGuard} from './login/auth.guard';
   ],
   imports: [
     BrowserModule,
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(config),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     FormsModule,
     AppRoutingModule
   ],
-  providers: [LoginService, AuthGuard],
+  providers: [LoginService, DashboardService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
