@@ -15,7 +15,7 @@ import {FormsModule} from '@angular/forms';
 
 import { LoginService } from './login/login.service';
 import { AppRoutingModule } from './app-routing.module';
-
+import { DashboardService } from './dashboard/dashboard.service';
 import {AuthGuard} from './login/auth.guard';
 
 
@@ -34,7 +34,9 @@ import {AuthGuard} from './login/auth.guard';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [LoginService, AuthGuard],
+  providers: [LoginService, 
+      AuthGuard,
+      DashboardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
