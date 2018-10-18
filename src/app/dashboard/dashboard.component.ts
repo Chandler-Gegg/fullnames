@@ -8,35 +8,41 @@ import { DashboardService } from './dashboard.service';
 })
 export class DashboardComponent implements OnInit {
   searches: any[];
-  firstNamesRef: any[];
+  firstNames: any[];
+  lastName: any[];
 
   constructor(private dashboardService: DashboardService) {
     this.searches = [];
-    this.firstNamesRef = [];
+    this.firstNames = [];
 
     console.log("DATABASE DATA");
-    this.getLastName();
+    this.getFirstNames();
     console.log("DATABASE DATA");
   }
 
+  //  add the write to the history of searches
+  performSearch() {
+
+  }
+
   searchHistory() {
-    this.dashboardService.getSearchHistory().subscribe( (history: any) => {
+    this.dashboardService.getSearchHistory().subscribe((history: any) => {
       this.searches = history;
     });
   }
 
-  getFirstName() {
+  getFirstNames() {
     this.dashboardService.getFirstNames().subscribe((fNames: any[]) => {
       console.log(fNames);
     });
   }
 
-  getLastName() {
-    this.dashboardService.getLastNames().subscribe((fNames: any[]) => {
-      console.log(fNames);
+  getLastNames() {
+    this.dashboardService.getLastNames().subscribe((lNames: any[]) => {
+      console.log(lNames);
     });
   }
-
+ 
   ngOnInit() {
   }
 }
