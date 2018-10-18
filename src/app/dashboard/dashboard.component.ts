@@ -9,14 +9,15 @@ import { DashboardService } from './dashboard.service';
 export class DashboardComponent implements OnInit {
   searches: any[];
   firstNames: any[];
-  lastName: any[];
+  lastNames: any[];
 
   constructor(private dashboardService: DashboardService) {
     this.searches = [];
     this.firstNames = [];
-
+    this.lastNames = [];
     console.log("DATABASE DATA");
     this.getFirstNames();
+    this.getLastNames();
     console.log("DATABASE DATA");
   }
 

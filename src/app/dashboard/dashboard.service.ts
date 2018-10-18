@@ -14,8 +14,8 @@ export class DashboardService {
   {
     this.searchHistoryRef = this.db
       .list(`currentSession/${this.loginService.userUid}/searches`);
-    this.firstNameRef = this.db.list(`firstNames`);
-    this.lastNameRef = this.db.list(`lastNames`);
+    this.firstNameRef = this.db.list(`names/first-names`);
+    this.lastNameRef = this.db.list(`names/last-names`);
   }
 
   getSearchHistory() {
