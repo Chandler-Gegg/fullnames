@@ -8,8 +8,11 @@ import { DashboardService } from './dashboard.service';
 })
 export class DashboardComponent implements OnInit {
   searches: any[];
+
   constructor(private dashboardService: DashboardService) {
     this.searches = [];
+
+    
   }
 
   searchHistory() {
@@ -20,5 +23,4 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

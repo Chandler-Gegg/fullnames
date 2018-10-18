@@ -8,8 +8,12 @@ export class DashboardService {
   constructor(
     private loginService: LoginService,
     private db: AngularFireDatabase,
-    ) {
+    ) 
+  {
     this.searchHistoryRef = this.db.list(`currentSession/${this.loginService.userUid}/searches`);
+    console.log("DATABASE DATA");
+    
+    console.log("DATABASE DATA");
   }
 
   getSearchHistory() {
