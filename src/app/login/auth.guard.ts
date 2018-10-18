@@ -13,9 +13,9 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | boolean {
-      // console.log('AUTH USER AUTH USER');
-      // console.log(this.auth.userUid);
-      // console.log('AUTH USER AUTH USER');
+    // console.log('AUTH USER AUTH USER');
+    // console.log(this.auth.userUid);
+    // console.log('AUTH USER AUTH USER');
 
     // console.log('IS ADMIN IS ADMIN IS ADMIN');
     // console.log(this.auth.isAdmin());

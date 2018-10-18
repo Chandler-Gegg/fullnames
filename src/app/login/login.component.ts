@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit {
   email: string;
   password: string;
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
 
   validateForm(email: string, password: string): boolean {
     if (email.length === 0) {
+      //  add a regex to validate an email
       return false;
     }
 
