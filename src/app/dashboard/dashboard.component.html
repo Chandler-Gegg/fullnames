@@ -1,3 +1,22 @@
-<p>
-  dashboard works!
-</p>
+  <form>
+    <label for="firstname">First Name:</label>
+    <input name="firstname" id="firstname" #firstname> 
+  
+    <label for="lastname">Last Name:</label>
+    <input name="lastname" id="lastname" #lastname> 
+
+    <button (click)="doSearch(firstname.value, lastname.value)">Search Full Name</button>
+    <button (click)="addName(firstname.value, lastname.value)">Add Name Now (without search)</button>
+    
+  </form>
+
+  <div [ngSwitch]="match">
+    <div *ngSwitchCase="true">
+      <h3>{{ firstname.value }} {{ lastname.value }} is a valid name</h3>
+    </div>
+    <div *ngSwitchCase="false">
+      <h3>Search complete. No match found.</h3>
+      <p>Click the button below to add this name to the database now:</p>
+      <button (click)="addName(firstname.value, lastname.value)">Add Name</button>
+    </div>
+  </div>
