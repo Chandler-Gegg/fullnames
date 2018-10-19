@@ -7,15 +7,28 @@ import { DashboardService } from './dashboard.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  searches: any[];
+  firstName: string;
+  lastName: string;
+
+  match: boolean;
+
   constructor(private dashboardService: DashboardService) {
-    this.searches = [];
+
+    // DATABASE TEST
+    // this.dashboardService.getDataTest().subscribe( (fnames: any[]) => {console.log(fnames); });
+  }
+  doSearch (first: string, last: string) {
+    this.dashboardService.updateSearchHistory(first, last);
+
+    this.dashboardService.lookupName(first, last)
+        .subscribe(match => {
+          console.log(`match = ${match}`);
+          this.match = match;
+        });
   }
 
-  searchHistory() {
-    this.dashboardService.getSearchHistory().subscribe( (history: any) => {
-      this.searches = history;
-    });
+  addName(first: string, last: string) {
+    this.dashboardService.addName(first, last);
   }
 
   ngOnInit() {
