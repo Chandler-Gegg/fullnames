@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from './dashboard.service';
+import { AlertService } from '../alert/alert.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,9 +10,10 @@ import { DashboardService } from './dashboard.service';
 export class DashboardComponent implements OnInit {
   searches: any[];
   // 2 way binding on respective inputs
-  firstName: string;
-  lastName: string;
-  constructor(private dashboardService: DashboardService) {
+  firstName = '';
+  lastName = '';
+  successMessage = '';
+  constructor(private dashboardService: DashboardService, private alertService: AlertService) {
     this.searches = [];
   }
 
@@ -22,9 +24,23 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+   // this.dashboardService.getFirstNames();
   }
 
   addName() {
-    this.dashboardService.addName(this.firstName, this.lastName);
+    // this.dashboardService.addName(this.firstName, this.lastName);
+    console.log(`Adding ${this.firstName} ${this.lastName}`);
+  }
+
+  searchFullName() {
+    const fn = this.firstName.toLowerCase();
+    const ln = this.lastName.toLowerCase();
+    this.dashboardService.searchFullName(fn, ln)
+    .subscribe(
+      isValid => {
+        this.alertService.success(`${fn} ${ln} is a valid name!`);
+      },
+    err => this.alertService.danger(err)
+    );
   }
 }

@@ -16,7 +16,9 @@ import {FormsModule} from '@angular/forms';
 import { LoginService } from './login/login.service';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardService } from './dashboard/dashboard.service';
+import { AlertService } from './alert/alert.service';
 import {AuthGuard} from './login/auth.guard';
+import { AlertComponent } from './alert/alert.component';
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import {AuthGuard} from './login/auth.guard';
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    HistoryComponent
+    HistoryComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import {AuthGuard} from './login/auth.guard';
   ],
   providers: [LoginService, 
       AuthGuard,
-      DashboardService],
+      DashboardService,
+      AlertService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

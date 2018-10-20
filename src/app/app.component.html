@@ -3,4 +3,8 @@
   <a routerLink="/history">History</a>
   <button (click)="logout()" class="btn btn-primary btn-danger"> Logout </button>
 </nav>
-<router-outlet></router-outlet>
+<div class="container">
+  <router-outlet></router-outlet>
+  
+  <app-alert></app-alert>
+</div>
