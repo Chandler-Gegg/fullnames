@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { DashboardService } from './dashboard.service';
+import {Component, OnInit} from '@angular/core';
+import {DashboardService} from './dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,17 +8,27 @@ import { DashboardService } from './dashboard.service';
 })
 export class DashboardComponent implements OnInit {
   searches: any[];
+  firstNamesRef: any;
+
   constructor(private dashboardService: DashboardService) {
     this.searches = [];
   }
 
   searchHistory() {
-    this.dashboardService.getSearchHistory().subscribe( (history: any) => {
-      this.searches = history;
-    });
+    this.dashboardService
+      .getSearchHistory()
+      .subscribe((history: any) => {
+        this.searches = history;
+      });
   }
 
   ngOnInit() {
+    this.firstNamesRef = this.dashboardService.getFirstNames();
+
+    this.firstNamesRef
+      .subscribe((firstNames: any[]) => {
+        console.log(firstNames);
+      });
   }
 
 }
