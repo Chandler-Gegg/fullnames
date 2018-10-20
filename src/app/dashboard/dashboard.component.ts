@@ -19,14 +19,7 @@ export class DashboardComponent implements OnInit {
     this.search_or_add = true;
   }
 
-  searchHistory() {
-    this.dashboardService.getSearchHistory().subscribe( (history: any) => {
-      this.searches = history;
-    });
-  }
-
   search(){
-    console.log("searched");
     var results = this.dashboardService.search(this.fName, this.lName)
         .subscribe(match => {
           console.log(`match = ${match}`);
@@ -53,7 +46,6 @@ export class DashboardComponent implements OnInit {
   cancelAdd(){
       this.search_or_add = true;
       document.getElementById('result').innerHTML = "";
-      console.log("canceled");
   }
 
   ngOnInit() {
