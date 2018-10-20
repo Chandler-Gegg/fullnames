@@ -8,6 +8,9 @@ import { DashboardService } from './dashboard.service';
 })
 export class DashboardComponent implements OnInit {
   searches: any[];
+  // 2 way binding on respective inputs
+  firstName: string;
+  lastName: string;
   constructor(private dashboardService: DashboardService) {
     this.searches = [];
   }
@@ -19,7 +22,9 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dashboardService.getFirstNames();
   }
 
+  addName() {
+    this.dashboardService.addName(this.firstName, this.lastName);
+  }
 }

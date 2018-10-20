@@ -7,22 +7,33 @@ export class DashboardService implements OnInit {
 
   searchHistoryRef: any;
   firstNamesRef: any;
+  lastNamesRef: any;
+  firstNames: any[];
   constructor(
     private loginService: LoginService,
     private db: AngularFireDatabase,
     ) {
     this.searchHistoryRef = this.db.list(`currentSession/${this.loginService.userUid}/searches`);
-    this.firstNamesRef = this.db.object(`firstNames`);
+    this.firstNamesRef = this.db.list(`firstNames`);
+    this.lastNamesRef = this.db.object(`lastNames`);
   }
   ngOnInit(): void {
-    this.getFirstNames();
   }
-  
+
   getSearchHistory() {
     return this.searchHistoryRef.valueChanges();
   }
 
   getFirstNames() {
-    return this.firstNamesRef.valueChanges().subscribe(firstNames => console.log(Object.keys(firstNames)));
+    this.firstNamesRef.valueChanges().subscribe(names => console.log(names));
+  }
+
+  getLastNames() {
+    return this.lastNamesRef.valueChanges();
+  }
+
+  addName(firstName: string, lastName: string) {
+    this.db.list('firstNames').push({ [firstName] : true });
+    this.db.list('lastNames').push({ [lastName] : true });
   }
 }
