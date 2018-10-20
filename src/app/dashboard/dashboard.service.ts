@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { LoginService } from '../login/login.service';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { of } from 'rxjs';
+import { of, concat } from 'rxjs';
 
 @Injectable()
 export class DashboardService {
-  searchHistoryRef: any[];
+  searchHistoryRef: any;
   constructor(
     private loginService: LoginService,
     private db: AngularFireDatabase,
@@ -26,17 +26,12 @@ export class DashboardService {
       const obs2 = this.db.object(`/lastNames/${lName}`).snapshotChanges();
       return obs1.switchMap(action1 =>
         obs2.switchMap(action2 => {
-          return of((action1.payload.val() === true) && (action2.payload.val() === true));
-        })
-      );
+            return of((action1.payload.val() === true) && (action2.payload.val() === true));
+        }));
     }
 
   addName(fName: string, lName: string){
     this.db.list('/firstNames').set(fName, true);
     this.db.list('/lastNames').set(lName, true);
   }
-
-  getDataTest() {
-   return this.db.list('firstNames').valueChanges();
- }
 }
