@@ -9,9 +9,10 @@ import {DashboardService} from './dashboard.service';
 export class DashboardComponent implements OnInit {
   searches: any[];
   firstNamesRef: any;
-  firstName: string;
-  firstNameResult: Object = null;
-  lastName: string = "";
+  firstNameInput: string;
+  lastNameInput: string;
+
+  nameSearchResult: Object = null;
 
   constructor(private dashboardService: DashboardService) {
     this.searches = [];
@@ -35,23 +36,41 @@ export class DashboardComponent implements OnInit {
   }
 
   onFirstNameSearch() {
-    console.log(this.firstName);
+    if (!this.firstNameInput) {
+      this.nameSearchResult = {display: "Please enter a first name to search"};
+      return;
+    }
 
-    this.firstNameResult = {display: `looking for ${this.firstName}`};
+    this.nameSearchResult = {display: `looking for ${this.firstNameInput}`};
 
-    this.dashboardService.getFirstName(this.firstName)
+    this.dashboardService.getFirstName(this.firstNameInput)
       .subscribe((item) => {
         if (item) {
-          this.firstNameResult = {display: `${this.firstName} exists!`};
+          this.nameSearchResult = {display: `First name ${this.firstNameInput} exists!`};
         } else {
-          this.firstNameResult = {display: `Could not find ${this.firstName}`};
+          this.nameSearchResult = {display: `Could not find first name ${this.firstNameInput}`};
         }
         console.log(item);
       });
   }
 
   onLastNameSearch() {
-    console.log(this.lastName);
+    if (!this.lastNameInput) {
+      this.nameSearchResult = {display: "Please enter a last name to search"};
+      return;
+    }
+    this.nameSearchResult = {display: `looking for ${this.lastNameInput}`};
+
+    this.dashboardService.getLastName(this.lastNameInput)
+      .subscribe((item) => {
+        if (item) {
+          this.nameSearchResult = {display: `Last name ${this.lastNameInput} exists!`};
+        } else {
+          this.nameSearchResult = {display: `Could not find last name ${this.lastNameInput}`};
+        }
+        console.log(item);
+      });
+
 
   }
 }

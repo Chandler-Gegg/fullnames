@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistoryComponent implements OnInit {
 
+  private searchHistory: {};
+
   constructor() { }
 
   ngOnInit() {
   }
+
+
+
 
 }

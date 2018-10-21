@@ -1,7 +1,7 @@
 <form (ngSubmit)="onFirstNameSearch()">
   <span class="form-group">
     <label for="firstName">First Name</label>
-    <input type="text" class="form-control" id="firstName" name="firstName" required [(ngModel)]="firstName">
+    <input type="text" class="form-control" id="firstName" name="firstName" required [(ngModel)]="firstNameInput">
 
   </span>
   <span><button type="submit" class="btn btn-success">Search First Name</button></span>
@@ -11,7 +11,7 @@
 <form (ngSubmit)="onLastNameSearch()">
   <span class="form-group">
     <label for="lastName">Last Name</label>
-    <input type="text" class="form-control" id="lastName" name="lastName" required [(ngModel)]="lastName">
+    <input type="text" class="form-control" id="lastName" name="lastName" required [(ngModel)]="lastNameInput">
   </span>
   <span>
     <button type="submit" class="btn btn-success">Search Last Name</button>
@@ -19,15 +19,19 @@
 </form>
 
 
-<div *ngIf="firstNameResult != null; then thenBlock">
-</div>
-<ng-template #thenBlock>{{firstNameResult.display}}</ng-template>
-<ng-template #elseBlock>{{firstNameResult.display}}</ng-template>
+<div *ngIf="nameSearchResult != null; then thenBlock"></div>
+<ng-template #thenBlock>{{nameSearchResult.display}}</ng-template>
+<ng-template #elseBlock>{{nameSearchResult.display}}</ng-template>
 
-<div>
-  <ul>
-    <li *ngFor="let data of this.firstNamesRef | async">
-      {{data}}
-    </li>
-  </ul>
-</div>
+<!--<div *ngIf="lastNameResult != null; then thenBlock">-->
+<!--</div>-->
+<!--<ng-template #thenBlock>{{lastNameResult.display}}</ng-template>-->
+<!--<ng-template #elseBlock>{{lastNameResult.display}}</ng-template>-->
+
+<!--<div>-->
+  <!--<ul>-->
+    <!--<li *ngFor="let data of this.firstNamesRef | async">-->
+      <!--{{data}}-->
+    <!--</li>-->
+  <!--</ul>-->
+<!--</div>-->
