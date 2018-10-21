@@ -1,23 +1,25 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { AlertService } from './alert.service';
 import { Alert } from '../models/alert';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-alert',
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.css']
 })
-export class AlertComponent implements OnInit {
+export class AlertComponent implements OnInit, OnDestroy {
 
   alerts: Alert[] = [];
-  classes = [];
+  private unsubscribe$ = new Subject<void>();
   constructor(private alertService: AlertService, private ref: ChangeDetectorRef) { }
 
   ngOnInit() {
 
-    this.alertService.alert$.subscribe((alert: Alert) => {
+    this.alertService.alert$.pipe(
+      takeUntil(this.unsubscribe$))
+      .subscribe((alert: Alert) => {
       if (!alert) {
           // clear alerts when an empty alert is received
           this.alerts = [];
@@ -31,5 +33,9 @@ export class AlertComponent implements OnInit {
 
   removeAlert(alert: Alert) {
     this.alerts = this.alerts.filter(x => x !== alert);
+  }
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

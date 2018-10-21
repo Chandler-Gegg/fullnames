@@ -11,14 +11,15 @@ import { firebaseConfig } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { LoginService } from './login/login.service';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardService } from './dashboard/dashboard.service';
 import { AlertService } from './alert/alert.service';
-import {AuthGuard} from './login/auth.guard';
+import { AuthGuard } from './login/auth.guard';
 import { AlertComponent } from './alert/alert.component';
+import { HistoryService } from './history/history.service';
 
 
 @NgModule({
@@ -37,10 +38,11 @@ import { AlertComponent } from './alert/alert.component';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [LoginService, 
-      AuthGuard,
-      DashboardService,
-      AlertService],
+  providers: [LoginService,
+    AuthGuard,
+    DashboardService,
+    AlertService,
+    HistoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

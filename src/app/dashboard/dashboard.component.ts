@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DashboardService } from './dashboard.service';
 import { AlertService } from '../alert/alert.service';
 import { FailedName } from '../models/failed-name';
@@ -8,7 +8,7 @@ import { FailedName } from '../models/failed-name';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   searches: any[];
   // 2 way binding on respective inputs
   firstName = '';
@@ -47,5 +47,9 @@ export class DashboardComponent implements OnInit {
         this.alertService.danger(`${this.failedName.getFailedName()} not found. Click 'add' to add it.`);
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.alertService.reset();
   }
 }
