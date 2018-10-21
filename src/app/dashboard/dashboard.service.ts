@@ -2,6 +2,8 @@ import { Injectable, OnInit } from '@angular/core';
 import { LoginService } from '../login/login.service';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { mergeMap } from 'rxjs/operators';
+import { FailedName } from '../models/failed-name';
+import { AlertService } from '../alert/alert.service';
 
 @Injectable()
 export class DashboardService implements OnInit {
@@ -12,10 +14,11 @@ export class DashboardService implements OnInit {
   constructor(
     private loginService: LoginService,
     private db: AngularFireDatabase,
+    private alertService: AlertService
   ) {
     this.searchHistoryRef = this.db.list(`currentSession/${this.loginService.userUid}/searches`);
     this.firstNamesRef = this.db.list('names/first-names');
-    this.lastNamesRef = this.db.object(`lastNames`);
+    this.lastNamesRef = this.db.list(`names/last-names`);
   }
   ngOnInit(): void {
   }
@@ -24,30 +27,40 @@ export class DashboardService implements OnInit {
     return this.searchHistoryRef.valueChanges();
   }
 
-  getFirstNames() {
-    // this.firstNamesRef.valueChanges().subscribe(x => console.log(x));
+  addName(failedName: FailedName) {
+    if (failedName.firstFailed()) {
+      this.add(this.db.object('names/first-names'), failedName.firstName);
+    }
+    if (failedName.lastFailed()) {
+      this.add(this.db.object('names/last-names'), failedName.lastName);
+    }
   }
 
-  getLastNames() {
-    // return this.lastNamesRef.valueChanges();
+  add(ref: any, name: string) {
+    ref.update({[name]: true})
+      .then (
+        _ => this.alertService.success(`Sucessfully added ${name}`),
+        e => this.alertService.danger(`Unable to add ${name}`)
+      );
   }
-
-  addName(firstName: string, lastName: string) {
-    this.db.list('firstNames').push({ [firstName]: true });
-    this.db.list('lastNames').push({ [lastName]: true });
-  }
-
+  
   searchFullName(firstName: string, lastName: string) {
     return this.db.object(`names/first-names/${firstName}`).valueChanges().pipe(
       mergeMap(
-        _ => this.db.object(`names/first-names/${lastName}`).valueChanges(),
+        _ => this.db.object(`names/last-names/${lastName}`).valueChanges(),
         (first, last) => {
           if (first && last) {
             return true;
           }
           else {
-            const invalidName = first ? lastName : firstName;
-            throw Error(`${invalidName} is not in the database`);
+            let invalidName = '';
+            if (first == null && last == null) {
+              invalidName = 'both';
+            }
+            else {
+               invalidName = first ? 'last' : 'first';
+            }
+            throw Error(invalidName);
           }
         }
       )

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from './dashboard.service';
 import { AlertService } from '../alert/alert.service';
+import { FailedName } from '../models/failed-name';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +13,8 @@ export class DashboardComponent implements OnInit {
   // 2 way binding on respective inputs
   firstName = '';
   lastName = '';
-  successMessage = '';
+  enableAdd = false;
+  failedName: FailedName;
   constructor(private dashboardService: DashboardService, private alertService: AlertService) {
     this.searches = [];
   }
@@ -24,12 +26,11 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-   // this.dashboardService.getFirstNames();
   }
 
   addName() {
-    // this.dashboardService.addName(this.firstName, this.lastName);
-    console.log(`Adding ${this.firstName} ${this.lastName}`);
+    this.dashboardService.addName(this.failedName);
+    this.enableAdd = false;
   }
 
   searchFullName() {
@@ -37,10 +38,14 @@ export class DashboardComponent implements OnInit {
     const ln = this.lastName.toLowerCase();
     this.dashboardService.searchFullName(fn, ln)
     .subscribe(
-      isValid => {
+      _ => {
         this.alertService.success(`${fn} ${ln} is a valid name!`);
       },
-    err => this.alertService.danger(err)
+      err => {
+        this.enableAdd = true;
+        this.failedName = new FailedName(fn, ln, err.message.toLowerCase());
+        this.alertService.danger(`${this.failedName.getFailedName()} not found. Click 'add' to add it.`);
+      }
     );
   }
 }

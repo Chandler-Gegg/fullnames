@@ -11,7 +11,7 @@
     </div>
     <div id="button-container" class="d-flex justify-content-end">
       <button (click)=searchFullName() class="btn mr-2 btn-primary">Search</button>
-      <button (click)=addName() class="btn btn-primary">Add</button>
+      <button [disabled]="!enableAdd" (click)=addName() class="btn {{ enableAdd ? 'btn-primary' : ''}}">Add</button>
     </div>
   </form>
 </div>

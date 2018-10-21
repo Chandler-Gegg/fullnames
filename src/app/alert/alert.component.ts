@@ -25,12 +25,11 @@ export class AlertComponent implements OnInit {
       }
 
       // add alert to array
-      this.alerts = [alert];
-      this.classes = ['alert', `alert-${alert.level}`];
+      this.alerts.push(alert);
   });
   }
 
-  removeAlert() {
-    this.alertService.reset();
+  removeAlert(alert: Alert) {
+    this.alerts = this.alerts.filter(x => x !== alert);
   }
 }
