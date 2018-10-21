@@ -40,5 +40,20 @@ export class DashboardService {
       .valueChanges();
   }
 
+  insertFirstName(name: string) {
+    debugger;
+    if (name.trim()) {
+      return this.db
+        .object(`firstNames`)
+        .update({[name] : true});
+    }
+  }
+
+  insertLastName(name: string) {
+    return this.db
+      .object(`lastNames`)
+      .update({[name] : true});
+  }
+
 
 }

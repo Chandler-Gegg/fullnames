@@ -32,10 +32,11 @@
 
 
       <div *ngIf="nameResult.showCreate">
-        <a href="/dashboard/{{nameResult.type}}/{{nameResult.name}}" class="btn btn-primary">
-
-          Want to add {{nameResult.name}}?
-        </a>
+        <form (ngSubmit)="insertName(nameResult.name, nameResult.type)">
+          <button type="submit" class="btn btn-info">
+            Want to add {{nameResult.name}}?
+          </button>
+        </form>
       </div>
     </div>
   </div>

@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {DashboardService} from './dashboard.service';
-import {Router, ActivatedRoute} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
@@ -22,17 +22,6 @@ export class DashboardComponent implements OnInit {
               private router: ActivatedRoute) {
 
     this.searches = [];
-
-    this.router
-      .params
-      .subscribe(params => {
-        this.nameResult = {
-          name: params['name'],
-          type: params['type'],
-          display: "Type in a name to search."
-        };
-      });
-
 
   }
 
@@ -107,6 +96,30 @@ export class DashboardComponent implements OnInit {
         }
         console.log(item);
       });
+  }
+
+  insertName(name, type) {
+    let dbInsertPromise;
+    switch (type) {
+      case "last" :
+        dbInsertPromise = this.dashboardService.insertLastName(name);
+        break;
+      case "first":
+        dbInsertPromise = this.dashboardService.insertFirstName(name);
+        break;
+    }
+
+    if (dbInsertPromise) {
+      dbInsertPromise
+        .then( e=> {
+          this.nameResult = {
+            name: name,
+            type: type,
+            display: `Successfully inserted ${type} name: ${name}`
+          };
+        })
+        .catch(error => console.error(error));
+    }
 
 
   }
