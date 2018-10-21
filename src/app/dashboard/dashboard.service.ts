@@ -29,4 +29,15 @@ export class DashboardService {
 
   }
 
+
+  getFirstName(firstName: string) {
+    return this.db.object(`firstNames/${firstName}`)
+      .valueChanges();
+  }
+
+  getLastName(lastName: string) {
+    return this.db.object(`lastNames/${lastName}`)
+      .valueChanges();
+  }
+
 }

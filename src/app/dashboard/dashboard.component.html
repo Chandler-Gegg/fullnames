@@ -1,7 +1,28 @@
-<p>
-  dashboard works!
-</p>
+<form (ngSubmit)="onFirstNameSearch()">
+  <span class="form-group">
+    <label for="firstName">First Name</label>
+    <input type="text" class="form-control" id="firstName" name="firstName" required [(ngModel)]="firstName">
 
+  </span>
+  <span><button type="submit" class="btn btn-success">Search First Name</button></span>
+
+</form>
+
+<form (ngSubmit)="onLastNameSearch()">
+  <span class="form-group">
+    <label for="lastName">Last Name</label>
+    <input type="text" class="form-control" id="lastName" name="lastName" required [(ngModel)]="lastName">
+  </span>
+  <span>
+    <button type="submit" class="btn btn-success">Search Last Name</button>
+  </span>
+</form>
+
+
+<div *ngIf="firstNameResult != null; then thenBlock">
+</div>
+<ng-template #thenBlock>{{firstNameResult.display}}</ng-template>
+<ng-template #elseBlock>{{firstNameResult.display}}</ng-template>
 
 <div>
   <ul>
@@ -9,6 +30,4 @@
       {{data}}
     </li>
   </ul>
-
-
 </div>

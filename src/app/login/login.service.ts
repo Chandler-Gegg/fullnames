@@ -30,13 +30,16 @@ export class LoginService {
           console.log('SWITCHMAP');
           console.log(user);
           console.log('SWITCHMAP');
-          return this.db.object(`users/${user.uid}`).update({email: user.email}).then(() => {
-            return this.db.object(`users/${user.uid}`).valueChanges();
-          }).catch((error) => {
-            console.log('ERROR UPDATING USER EMAIL');
-            console.log(error);
-            console.log('ERROR UPDATING USER EMAIL');
-          });
+          return this.db.object(`users/${user.uid}`)
+            .update({email: user.email})
+            .then(() => {
+              return this.db.object(`users/${user.uid}`).valueChanges();
+
+            }).catch((error) => {
+              console.log('ERROR UPDATING USER EMAIL');
+              console.log(error);
+              console.log('ERROR UPDATING USER EMAIL');
+            });
         } else {
           return Observable.of(null);
         }

@@ -9,6 +9,9 @@ import {DashboardService} from './dashboard.service';
 export class DashboardComponent implements OnInit {
   searches: any[];
   firstNamesRef: any;
+  firstName: string;
+  firstNameResult: Object = null;
+  lastName: string = "";
 
   constructor(private dashboardService: DashboardService) {
     this.searches = [];
@@ -31,4 +34,24 @@ export class DashboardComponent implements OnInit {
       });
   }
 
+  onFirstNameSearch() {
+    console.log(this.firstName);
+
+    this.firstNameResult = {display: `looking for ${this.firstName}`};
+
+    this.dashboardService.getFirstName(this.firstName)
+      .subscribe((item) => {
+        if (item) {
+          this.firstNameResult = {display: `${this.firstName} exists!`};
+        } else {
+          this.firstNameResult = {display: `Could not find ${this.firstName}`};
+        }
+        console.log(item);
+      });
+  }
+
+  onLastNameSearch() {
+    console.log(this.lastName);
+
+  }
 }
