@@ -1,10 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {DashboardService} from './dashboard.service';
+import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: [
+    './dashboard.component.css',
+    '../app.component.css',
+  ]
 })
 export class DashboardComponent implements OnInit {
   searches: any[];
@@ -12,10 +16,24 @@ export class DashboardComponent implements OnInit {
   firstNameInput: string;
   lastNameInput: string;
 
-  nameSearchResult: Object = null;
+  nameResult: Object = null;
 
-  constructor(private dashboardService: DashboardService) {
+  constructor(private dashboardService: DashboardService,
+              private router: ActivatedRoute) {
+
     this.searches = [];
+
+    this.router
+      .params
+      .subscribe(params => {
+        this.nameResult = {
+          name: params['name'],
+          type: params['type'],
+          display: "Type in a name to search."
+        };
+      });
+
+
   }
 
   searchHistory() {
@@ -37,18 +55,28 @@ export class DashboardComponent implements OnInit {
 
   onFirstNameSearch() {
     if (!this.firstNameInput) {
-      this.nameSearchResult = {display: "Please enter a first name to search"};
+      this.nameResult = {display: "Please enter a first name to search"};
       return;
     }
 
-    this.nameSearchResult = {display: `looking for ${this.firstNameInput}`};
+    this.nameResult = {
+      display: `looking for ${this.firstNameInput}`,
+      name: `${this.firstNameInput}`
+    };
 
     this.dashboardService.getFirstName(this.firstNameInput)
       .subscribe((item) => {
         if (item) {
-          this.nameSearchResult = {display: `First name ${this.firstNameInput} exists!`};
+          this.nameResult = {
+            display: `First name ${this.firstNameInput} exists!`
+          };
         } else {
-          this.nameSearchResult = {display: `Could not find first name ${this.firstNameInput}`};
+          this.nameResult = {
+            display: `Could not find first name ${this.firstNameInput}`,
+            name: `${this.firstNameInput}`,
+            showCreate: true,
+            type: "first"
+          };
         }
         console.log(item);
       });
@@ -56,17 +84,26 @@ export class DashboardComponent implements OnInit {
 
   onLastNameSearch() {
     if (!this.lastNameInput) {
-      this.nameSearchResult = {display: "Please enter a last name to search"};
+      this.nameResult = {display: "Please enter a last name to search"};
       return;
     }
-    this.nameSearchResult = {display: `looking for ${this.lastNameInput}`};
+
+    this.nameResult = {
+      display: `looking for ${this.firstNameInput}`,
+      name: `${this.firstNameInput}`
+    };
 
     this.dashboardService.getLastName(this.lastNameInput)
       .subscribe((item) => {
         if (item) {
-          this.nameSearchResult = {display: `Last name ${this.lastNameInput} exists!`};
+          this.nameResult = {display: `Last name ${this.lastNameInput} exists!`};
         } else {
-          this.nameSearchResult = {display: `Could not find last name ${this.lastNameInput}`};
+          this.nameResult = {
+            display: `Could not find last name ${this.lastNameInput}`,
+            name: `${this.lastNameInput}`,
+            showCreate: true,
+            type: "last"
+          };
         }
         console.log(item);
       });

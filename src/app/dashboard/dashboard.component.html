@@ -4,7 +4,9 @@
     <input type="text" class="form-control" id="firstName" name="firstName" required [(ngModel)]="firstNameInput">
 
   </span>
-  <span><button type="submit" class="btn btn-success">Search First Name</button></span>
+  <span>
+    <button type="submit" class="btn btn-success">Search First Name</button>
+  </span>
 
 </form>
 
@@ -19,19 +21,22 @@
 </form>
 
 
-<div *ngIf="nameSearchResult != null; then thenBlock"></div>
-<ng-template #thenBlock>{{nameSearchResult.display}}</ng-template>
-<ng-template #elseBlock>{{nameSearchResult.display}}</ng-template>
+<div *ngIf="nameResult != null; then thenBlock"></div>
 
-<!--<div *ngIf="lastNameResult != null; then thenBlock">-->
-<!--</div>-->
-<!--<ng-template #thenBlock>{{lastNameResult.display}}</ng-template>-->
-<!--<ng-template #elseBlock>{{lastNameResult.display}}</ng-template>-->
+<ng-template #thenBlock>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">
+        {{nameResult.display}}
+      </h5>
 
-<!--<div>-->
-  <!--<ul>-->
-    <!--<li *ngFor="let data of this.firstNamesRef | async">-->
-      <!--{{data}}-->
-    <!--</li>-->
-  <!--</ul>-->
-<!--</div>-->
+
+      <div *ngIf="nameResult.showCreate">
+        <a href="/dashboard/{{nameResult.type}}/{{nameResult.name}}" class="btn btn-primary">
+
+          Want to add {{nameResult.name}}?
+        </a>
+      </div>
+    </div>
+  </div>
+</ng-template>
