@@ -1,21 +1,23 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import {Injectable} from '@angular/core';
+import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
 
-import { LoginService} from './login.service';
+import {LoginService} from './login.service';
 
-import { Observable } from 'rxjs/Observable';
-import { map, take, tap } from 'rxjs/operators';
+import {Observable} from 'rxjs/Observable';
+import {map, take, tap} from 'rxjs/operators';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private authService: LoginService, private router: Router) {}
+  constructor(private authService: LoginService, private router: Router) {
+  }
 
+  //@Override
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | boolean {
-      // console.log('AUTH USER AUTH USER');
-      // console.log(this.auth.userUid);
-      // console.log('AUTH USER AUTH USER');
+    // console.log('AUTH USER AUTH USER');
+    // console.log(this.auth.userUid);
+    // console.log('AUTH USER AUTH USER');
 
     // console.log('IS ADMIN IS ADMIN IS ADMIN');
     // console.log(this.auth.isAdmin());

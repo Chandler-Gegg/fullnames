@@ -1,3 +1,42 @@
-<p>
-  dashboard works!
-</p>
+<form (ngSubmit)="onFirstNameSearch()">
+  <span class="form-group">
+    <label for="firstName">First Name</label>
+    <input type="text" class="form-control" id="firstName" name="firstName" required [(ngModel)]="firstNameInput">
+
+  </span>
+  <span>
+    <button type="submit" class="btn btn-success">Search First Name</button>
+  </span>
+
+</form>
+
+<form (ngSubmit)="onLastNameSearch()">
+  <span class="form-group">
+    <label for="lastName">Last Name</label>
+    <input type="text" class="form-control" id="lastName" name="lastName" required [(ngModel)]="lastNameInput">
+  </span>
+  <span>
+    <button type="submit" class="btn btn-success">Search Last Name</button>
+  </span>
+</form>
+
+
+<div *ngIf="nameResult != null; then thenBlock"></div>
+
+<ng-template #thenBlock>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">
+        {{nameResult.display}}
+      </h5>
+
+      <div *ngIf="nameResult.showCreate">
+        <form (ngSubmit)="insertName(nameResult.name, nameResult.type)">
+          <button type="submit" class="btn btn-info">
+            Want to add {{nameResult.name}}?
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>
