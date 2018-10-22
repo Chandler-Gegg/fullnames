@@ -5,7 +5,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 @Injectable()
 export class DashboardService {
   searchHistoryRef: any;
-  firstNamesRef: any; 
+  firstNamesRef: any;
   constructor(
     private loginService: LoginService,
     private db: AngularFireDatabase,
@@ -13,9 +13,13 @@ export class DashboardService {
     this.searchHistoryRef = this.db.list(`currentSession/${this.loginService.userUid}/searches`);
     this.firstNamesRef = this.db.list('firstNames').valueChanges();
     this.firstNamesRef.subscribe((fnames: any[]) => {
-      console.log(fnames);
-    })
+      console.log("name: " + fnames);
+    });
   }
+
+  // searchName(){
+  //   db.list('/items', ref => ref.orderByChild('size').equalTo('large'))
+  // }
 
   getSearchHistory() {
     return this.searchHistoryRef.valueChanges();

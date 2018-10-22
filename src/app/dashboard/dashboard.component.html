@@ -1,3 +1,15 @@
-<p>
-  dashboard works!
-</p>
+<h1>Dashboard Component</h1>
+
+<label>First Name
+  <input [(ngModel)]="inputFirstName" placeholder="inputFirstName">
+</label>
+<label>Last Name
+  <input [(ngModel)]="inputLastName" placeholder="inputLastName">
+</label>
+<div>
+  <h2>Full Name</h2>
+  <div>
+    {{inputFirstName}} {{inputLastName}}
+    <button (click)="searchNames()">Search</button>
+  </div>
+</div>
