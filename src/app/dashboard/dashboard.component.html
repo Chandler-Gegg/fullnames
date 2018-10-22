@@ -1,4 +1,4 @@
-<form (ngSubmit)="search()" *ngIf="search_or_add==true">
+<form (ngSubmit)="search()">
   <div class="form-group">
     <label for="firstName">First Name</label>
     <input type="text" class="form-control" id="firstName" name="fName" required [(ngModel)]='fName'>
@@ -10,9 +10,8 @@
   <button type="submit" class="btn btn-success">Search</button>
 </form>
 
-<div id="result"></div>
-
-<form (ngSubmit)="addName()" *ngIf="search_or_add==false">
+<form (ngSubmit)="addName()">
   <button type="submit" class="btn btn-success">Add Name</button>
-  <button class="btn btn-default" (click)='cancelAdd()'>Cancel</button>
 </form>
+
+<div id="result"></div>

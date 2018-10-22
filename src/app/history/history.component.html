@@ -4,8 +4,9 @@
     <button (click)="searchHistory()">Get History</button>
   </div>
   <div *ngIf="searches.length">
+    <button (click)="sortHistory()">Sort by Timestamp</button>
     <div *ngFor="let search of searches">
-      <p>{{search.action}} {{search.firstName}} {{search.lastName}} {{search.timestamp}}</p>
+      <p>{{search.action}} {{search.firstName}} {{search.lastName}} {{search.date}}</p>
     </div>
   </div>
 </div>

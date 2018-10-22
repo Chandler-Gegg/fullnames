@@ -18,14 +18,16 @@ export class DashboardService {
   }
 
   updateHistory(fName: string, lName: string, operation: string) {
-    var d = new Date(); 
+    var d = new Date();
     var dformat = [d.getMonth()+1,
                d.getDate(),
                d.getFullYear()].join('/')+' '+
               [d.getHours(),
                d.getMinutes(),
                d.getSeconds()].join(':');
-    this.searchHistoryRef.push({ firstName: fName, lastName: lName, action: operation, timestamp: dformat});
+    var d2 = new Date();
+    this.searchHistoryRef.push({ firstName: fName, lastName: lName,
+       action: operation, date: dformat, timestamp: d2.getTime()});
   }
 
   search(fName: string, lName: string) {
