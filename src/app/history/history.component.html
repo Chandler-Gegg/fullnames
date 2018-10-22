@@ -1,9 +1,12 @@
 <div>
-
-  <ol>
-    <!--<li *ngFor="let searchItem of this.searchHistory | async">-->
-      <!--{{searchItem}}-->
-    <!--</li>-->
-  </ol>
-
+  <div class="card" style="width: 18rem;">
+    <div class="card-header">
+      Search History
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item" *ngFor="let searchItem of this.searchHistory">
+        {{searchItem}}
+      </li>
+    </ul>
+  </div>
 </div>

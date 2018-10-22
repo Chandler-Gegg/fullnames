@@ -1,20 +1,24 @@
 import {Injectable} from '@angular/core';
 import {LoginService} from '../login/login.service';
 import {AngularFireDatabase} from '@angular/fire/database';
-import {Observable} from "rxjs";
 
 @Injectable()
 export class DashboardService {
   searchHistoryRef: any;
-
-
   firstNamesRef: any;
+
+  CURRENT_SESSION_HISTORY_PATH: string;
+
 
   constructor(private loginService: LoginService,
               private db: AngularFireDatabase) {
 
+    this.CURRENT_SESSION_HISTORY_PATH = `currentSession/${this.loginService.userUid}/searches`;
+
+    console.log(this.CURRENT_SESSION_HISTORY_PATH);
+
     this.searchHistoryRef =
-      this.db.list(`currentSession/${this.loginService.userUid}/searches`);
+      this.db.list(this.CURRENT_SESSION_HISTORY_PATH);
   }
 
   getSearchHistory() {
@@ -26,22 +30,31 @@ export class DashboardService {
       .valueChanges();
 
     return this.firstNamesRef;
-
   }
 
 
-  getFirstName(firstName: string) {
-    return this.db.object(`firstNames/${firstName}`)
+  getFirstName(name: string) {
+    this.addSearchHistory(name);
+    return this.db.object(`firstNames/${name}`)
       .valueChanges();
   }
 
-  getLastName(lastName: string) {
-    return this.db.object(`lastNames/${lastName}`)
+  getLastName(name: string) {
+    this.addSearchHistory(name);
+    return this.db.object(`lastNames/${name}`)
       .valueChanges();
+  }
+
+
+  private addSearchHistory(searchTerm) {
+    this.db
+      .object(this.CURRENT_SESSION_HISTORY_PATH)
+      .update({[Date.now()]:searchTerm});
   }
 
   insertFirstName(name: string) {
-    debugger;
+    this.addSearchHistory(name);
+
     if (name.trim()) {
       return this.db
         .object(`firstNames`)
@@ -50,9 +63,13 @@ export class DashboardService {
   }
 
   insertLastName(name: string) {
-    return this.db
-      .object(`lastNames`)
-      .update({[name] : true});
+    this.addSearchHistory(name);
+
+    if (name.trim()) {
+      return this.db
+        .object(`lastNames`)
+        .update({[name]: true});
+    }
   }
 
 

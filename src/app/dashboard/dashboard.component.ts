@@ -1,13 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DashboardService} from './dashboard.service';
-import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: [
     './dashboard.component.css',
-    '../app.component.css',
+    '../app.component.css'
   ]
 })
 export class DashboardComponent implements OnInit {
@@ -16,10 +15,13 @@ export class DashboardComponent implements OnInit {
   firstNameInput: string;
   lastNameInput: string;
 
-  nameResult: Object = null;
+  nameResult: Object = {
+    name: "",
+    type: "",
+    display: ""
+  };
 
-  constructor(private dashboardService: DashboardService,
-              private router: ActivatedRoute) {
+  constructor(private dashboardService: DashboardService) {
 
     this.searches = [];
 
@@ -38,7 +40,6 @@ export class DashboardComponent implements OnInit {
 
     this.firstNamesRef
       .subscribe((firstNames: any[]) => {
-        console.log(firstNames);
       });
   }
 
@@ -67,7 +68,6 @@ export class DashboardComponent implements OnInit {
             type: "first"
           };
         }
-        console.log(item);
       });
   }
 
@@ -94,7 +94,6 @@ export class DashboardComponent implements OnInit {
             type: "last"
           };
         }
-        console.log(item);
       });
   }
 
@@ -111,7 +110,7 @@ export class DashboardComponent implements OnInit {
 
     if (dbInsertPromise) {
       dbInsertPromise
-        .then( e=> {
+        .then(e => {
           this.nameResult = {
             name: name,
             type: type,
@@ -120,7 +119,5 @@ export class DashboardComponent implements OnInit {
         })
         .catch(error => console.error(error));
     }
-
-
   }
 }

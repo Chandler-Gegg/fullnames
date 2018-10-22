@@ -4,23 +4,23 @@ import {DashboardService} from "../dashboard/dashboard.service";
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
-  styleUrls: ['./history.component.css']
+  styleUrls: ['../app.component.css', './history.component.css']
 })
 export class HistoryComponent implements OnInit {
 
-   searchHistory: any;
+  searchHistory: any;
 
   constructor(dashboardService: DashboardService) {
-    debugger;
-    // dashboardService
-    //   .getSearchHistory()
-    //   .subscribe(history => {
-    //     console.log(history);
-    //   });
+
+
+    dashboardService
+      .getSearchHistory()
+      .subscribe(history => {
+        this.searchHistory = history;
+      });
   }
 
   ngOnInit() {
   }
-
 
 }
