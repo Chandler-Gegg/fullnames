@@ -1,3 +1,17 @@
-<p>
-  dashboard works!
-</p>
+<div class="row mt-4">
+  <form class="col-md-6 mx-auto">
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input type="text" class="form-control" id="firstName" required [(ngModel)]="firstName" name="firstName"
+        placeholder="Enter first name">
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input type="text" class="form-control" id="lastName" required [(ngModel)]="lastName" name="lastName" placeholder="Enter last name">
+    </div>
+    <div id="button-container" class="d-flex justify-content-end">
+      <button (click)=searchFullName() class="btn mr-2 btn-primary">Search</button>
+      <button [disabled]="!enableAdd" (click)=addName() class="btn {{ enableAdd ? 'btn-primary' : ''}}">Add</button>
+    </div>
+  </form>
+</div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HistoryService } from './history.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-history',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistoryComponent implements OnInit {
 
-  constructor() { }
+  searchHistory$: Observable<any[]>;
+  constructor(private historyService: HistoryService) { }
 
   ngOnInit() {
+    this.searchHistory$ = this.historyService.getSearchHistory();
   }
 
 }

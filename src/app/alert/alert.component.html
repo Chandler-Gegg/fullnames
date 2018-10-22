@@ -1,0 +1,4 @@
+<div *ngFor="let al of alerts" class="alert alert-{{al.level}}">
+  {{al.message}}
+  <a class="close" (click)="removeAlert(al)">&times;</a>
+</div>
