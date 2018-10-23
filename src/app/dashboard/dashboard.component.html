@@ -1,15 +1,24 @@
 <h1>Dashboard Component</h1>
 
-<label>First Name
-  <input [(ngModel)]="inputFirstName" placeholder="inputFirstName">
+<div>
+  <label>First Name
+    <input [(ngModel)]="inputFirstName" placeholder="inputFirstName">
+    <span *ngIf="firstNameFound">Already in Database</span>
 </label>
-<label>Last Name
-  <input [(ngModel)]="inputLastName" placeholder="inputLastName">
-</label>
+</div>
+<div>
+  <label>Last Name
+    <input [(ngModel)]="inputLastName" placeholder="inputLastName">
+    <span *ngIf="lastNameFound">Already in Database</span>
+  </label>
+</div>
+
 <div>
   <h2>Full Name</h2>
   <div>
     {{inputFirstName}} {{inputLastName}}
-    <button (click)="searchNames()">Search</button>
+    <span *ngIf="firstNameFound && lastNameFound"> Is a valid name!</span>
   </div>
+  <button (click)="searchNames()">Search Full Name</button>
+  <button (click)="addNames()" *ngIf="unlistedFirstName() || unlistedLastName()" >Add Name</button>
 </div>
