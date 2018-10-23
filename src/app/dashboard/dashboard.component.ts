@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit {
       `inputFirstName ${this.inputFirstName}`,
       `inputLastName ${this.inputLastName}`
     );
+    this.dashboardService.searchAdd(this.inputFirstName, this.inputLastName)
 
     if (this.inputFirstName ) {
       // BEGIN ASYNC
@@ -72,6 +73,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.searchHistory();
   }
 
 }

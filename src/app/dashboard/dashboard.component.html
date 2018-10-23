@@ -22,3 +22,9 @@
   <button (click)="searchNames()">Search Full Name</button>
   <button (click)="addNames()" *ngIf="unlistedFirstName() || unlistedLastName()" >Add Name</button>
 </div>
+<div>
+  <h2>Searches:</h2>
+  <ol>
+    <li *ngFor="let search of searches">{{search.firstName}} {{search.lastName}}</li>
+  </ol>
+</div>

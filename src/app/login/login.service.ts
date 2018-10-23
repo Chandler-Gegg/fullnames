@@ -21,6 +21,7 @@ export class LoginService {
 
   user: Observable<{} | null>;
   userUid: string;
+  sessionKey: string;
 
   /*
   The constructor fetches the user
@@ -53,10 +54,10 @@ export class LoginService {
   loginWithEmail(email: string, password: string) {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((auth) => {
-        console.log(auth.user.uid);
+        console.log('auth.user.uid', auth.user.uid);
         const createdAt = firebase.database.ServerValue.TIMESTAMP;
         debugLog('loginWithEmail CREATED AT', createdAt);
-        const sessionKey = this.db.database
+        this.sessionKey = this.db.database
                         .ref(`sessions`)
                         .push({
                           userUid: auth.user.uid
@@ -65,12 +66,13 @@ export class LoginService {
         const sessionPayload: any = {
           createdAt: createdAt,
           userUid: auth.user.uid,
-          currentSessionKey: sessionKey,
+          currentSessionKey: this.sessionKey,
         };
 
         const sessionPayloads: any = {};
         sessionPayloads[`currentSession/${auth.user.uid}`] = sessionPayload;
-        sessionPayloads[`users/${auth.user.uid}/sessions/${sessionKey}`] = {'createdAt': createdAt};
+        sessionPayloads[`users/${auth.user.uid}/sessions/${this.sessionKey}`] = {'createdAt': createdAt};
+        debugLog('sessionPayloads', sessionPayloads )
         return this.db.database.ref().update(sessionPayloads);
       })
       .catch(error => {
