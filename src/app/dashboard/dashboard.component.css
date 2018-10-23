@@ -5,3 +5,11 @@
 .invalid-name-message {
   color: red;
 }
+
+.success-message {
+  color: green;
+}
+
+.failure-message {
+  color: red;
+}

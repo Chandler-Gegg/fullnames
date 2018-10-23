@@ -12,11 +12,23 @@
     <input type="text" [(ngModel)]="lastName" >
   </div>
   <br>
+  
   <div *ngIf="message" [ngClass]="{'valid-name-message': isFirstNameValid && isLastNameValid, 'invalid-name-message': !isFirstNameValid || !isLastNameValid}">
     <h3>
       {{ message }}
     </h3>
   </div>
+  <div *ngIf="addFirstNameMessage" [ngClass]="{'success-message': addFirstNameSucc, 'failure-message': !addFirstNameSucc}">
+    <h3>
+      {{ addFirstNameMessage }}
+    </h3>
+  </div>
+  <div *ngIf="addLastNameMessage" [ngClass]="{'success-message': addLastNameSucc, 'failure-message': !addLastNameSucc}">
+    <h3>
+      {{ addLastNameMessage }}
+    </h3>
+  </div>
+  
   <br>
   <div>
     <button (click)="searchFullName()">Search FullName</button>

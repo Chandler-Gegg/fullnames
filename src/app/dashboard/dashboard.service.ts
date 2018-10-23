@@ -29,6 +29,21 @@ export class DashboardService {
     return this.db.object(`lastNames/${lastName}`).valueChanges();
   }
 
+  addFirstName(firstName: string) {
+    let item = {};
+    item[`${firstName}`] = true;
+
+    return this.db.object(`firstNames`).update(item);
+    //return this.db.object(`firstNames`).update({[name] : true});
+  }
+
+  addLastName(lastName: string) {
+    let item = {};
+    item[`${lastName}`] = true;
+
+    return this.db.object(`lastNames`).update(item);
+  }
+
   // for test...begin
   testGetData() {
     this.firstNamesRef = this.db.list(`firstNames`).valueChanges().subscribe(
