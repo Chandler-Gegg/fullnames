@@ -11,7 +11,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 
 
 export class HistoryComponent implements OnInit {
-  searches: any[];
+  searches: any;
   searchFlag: boolean
   constructor(
     private loginService: LoginService,
@@ -47,7 +47,7 @@ export class HistoryComponent implements OnInit {
         }
       }
     }
-    
+
     swap(a: number, b: number){
       var swap = this.searches[a];
       this.searches[a] = this.searches[b];
