@@ -1,3 +1,15 @@
-<p>
-  dashboard works!
-</p>
+<input [(ngModel)]="firstName">
+<input [(ngModel)]="lastName">
+<button (click) = searchDB()> search database </button>
+<button (click) = addToDB()> add to database </button>
+<div *ngIf="this.firstValid && !this.lastValid">
+Found {{this.firstName}} in database, but {{this.lastName}} absent. 
+<button (click) = addToDB()>Add "{{this.firstName + "  "}} {{this.lastName}}"</button>
+</div>
+<div *ngIf="!this.firstValid && this.lastValid">
+Did not find {{this.firstName}} in database, but {{this.lastName}} present. 
+<button (click) = addToDB()>Add "{{this.firstName + "  "}} {{this.lastName}}"</button>
+</div>
+<div *ngIf="this.firstValid && this.lastValid">
+Found {{this.firstName + " " + this.lastName}} in Database!
+</div>

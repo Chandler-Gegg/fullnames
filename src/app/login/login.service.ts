@@ -67,6 +67,7 @@ export class LoginService {
         return this.db.database.ref().update(sessionPayloads);
       })
       .catch(error => {
+        console.log("ERROR:");
         console.log(error);
         throw error;
       });
