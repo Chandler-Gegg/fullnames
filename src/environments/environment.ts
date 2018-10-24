@@ -7,12 +7,12 @@ export const environment = {
 };
 
 export const firebaseConfig = { 
-  apiKey: "",
-  authDomain: "",
-  databaseURL: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: ""
+  apiKey: "AIzaSyAKkiae5pb5c4OdkZB2nzkCFPJBO220KQ0",
+  authDomain: "test1-c2c19.firebaseapp.com",
+  databaseURL: "https://test1-c2c19.firebaseio.com",
+  projectId: "test1-c2c19",
+  storageBucket: "test1-c2c19.appspot.com",
+  messagingSenderId: "587587942348"
 };
 
 /*
