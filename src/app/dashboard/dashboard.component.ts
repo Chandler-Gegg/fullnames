@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { DashboardService } from './dashboard.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class DashboardComponent implements OnInit {
   addFirstNameSucc: boolean;
   addLastNameMessage: string = null;
   addLastNameSucc: boolean;
-
+  
   searches: any[];
 
   constructor(private dashboardService: DashboardService) {
@@ -25,7 +26,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dashboardService.testGetData();
+    
   }
 
   searchHistory() {
@@ -73,6 +74,9 @@ export class DashboardComponent implements OnInit {
             
             firstNamesRef.unsubscribe();
             lastNamesRef.unsubscribe();
+
+            // add searched name to search history
+            this.addNameToSearchHistory();
           }
         );
       }
@@ -115,5 +119,11 @@ export class DashboardComponent implements OnInit {
     this.message = null;
     this.addFirstNameMessage = null;
     this.addLastNameMessage = null;
+  }
+
+  addNameToSearchHistory() {
+    let name = `${this.firstName} ${this.lastName}`;
+
+    this.dashboardService.addNameToSearchHistory(name);
   }
 }

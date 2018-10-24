@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { LoginService } from '../login/login.service';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class DashboardService {
 
   searchHistoryRef: any;
-  // for test...begin
-  firstNamesRef: any;
-  // for test...end
+  searchHistoryKey = new BehaviorSubject<string>(null);
+  //searchHistoryKeyObservable = this.searchHistoryKey.asObservable();
 
   constructor(
     private loginService: LoginService,
@@ -44,15 +44,25 @@ export class DashboardService {
     return this.db.object(`lastNames`).update(item);
   }
 
-  // for test...begin
-  testGetData() {
-    this.firstNamesRef = this.db.list(`firstNames`).valueChanges().subscribe(
-      (firstNames:any[]) => {
-        console.log('get firstNames...begin');
-        console.log(firstNames);
-        console.log('get firstNames...end');
-      }
-    );
-
+  addNameToSearchHistory(name: string) {
+    if (this.searchHistoryKey.value) {
+      this.searchHistoryRef.update(this.searchHistoryKey.value, { [name]: true }).then(
+        (_) => {},
+        (error) => {
+          console.log(`Failed to add ${name} to search history!`);
+        }
+      );
+    } else {
+      this.searchHistoryRef.push({ [name]: true }).then(
+        (item) => {
+          this.searchHistoryKey.next(item.key);
+        },
+        (error) => {
+          console.log(`Failed to add ${name} to search history!`);
+        }
+      );
+    }
   }
+
+  
 }
