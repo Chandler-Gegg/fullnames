@@ -8,7 +8,7 @@ export class DashboardService {
 
   searchHistoryRef: any;
   searchHistoryKey = new BehaviorSubject<string>(null);
-  //searchHistoryKeyObservable = this.searchHistoryKey.asObservable();
+  searchHistoryKeyObservable = this.searchHistoryKey.asObservable();
 
   constructor(
     private loginService: LoginService,
@@ -44,7 +44,12 @@ export class DashboardService {
     return this.db.object(`lastNames`).update(item);
   }
 
+  addNameToSearchHistory(firstName: string, lastName: string) {
+    return this.searchHistoryRef.push({firstName: firstName, lastName: lastName});
+  }
+  /*
   addNameToSearchHistory(name: string) {
+    // there is a unique key for search history
     if (this.searchHistoryKey.value) {
       this.searchHistoryRef.update(this.searchHistoryKey.value, { [name]: true }).then(
         (_) => {},
@@ -63,6 +68,6 @@ export class DashboardService {
       );
     }
   }
-
+  */
   
 }

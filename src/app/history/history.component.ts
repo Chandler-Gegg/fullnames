@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { HistoryService } from './history.service';
 
 @Component({
   selector: 'app-history',
@@ -7,9 +10,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HistoryComponent implements OnInit {
 
-  constructor() { }
+  /*
+  // there is a unique key for search history
+  searchHistory: Observable<any[]>;
+  */
+  
+  searchHistory: any[];
+
+  constructor(private historyService: HistoryService) { 
+
+  }
 
   ngOnInit() {
+    this.historyService.getSearchHistory().subscribe(
+      (history) => {
+        this.searchHistory = history;
+      },
+      (error) => {
+        console.log('Failed to get search history!');
+      }
+    );
+    
+    /*
+    // there is a unique key for search history
+    this.searchHistory = this.historyService.getSearchHistory();
+    */
   }
 
 }

@@ -18,6 +18,7 @@ import { DashboardService } from './dashboard/dashboard.service';
 import { AppRoutingModule } from './app-routing.module';
 
 import {AuthGuard} from './login/auth.guard';
+import { HistoryService } from './history/history.service';
 
 
 @NgModule({
@@ -35,7 +36,7 @@ import {AuthGuard} from './login/auth.guard';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [LoginService, AuthGuard, DashboardService],
+  providers: [LoginService, AuthGuard, DashboardService, HistoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

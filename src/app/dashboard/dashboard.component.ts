@@ -122,8 +122,17 @@ export class DashboardComponent implements OnInit {
   }
 
   addNameToSearchHistory() {
-    let name = `${this.firstName} ${this.lastName}`;
+    this.dashboardService.addNameToSearchHistory(this.firstName, this.lastName).then(
+      (_) => {},
+      (error) => {
+        console.log(`Failed to add ${this.firstName} ${this.lastName} to search history!`);
+      }
+    );
 
+    /*
+    // there is a unique key for search history
+    let name = `${this.firstName} ${this.lastName}`;
     this.dashboardService.addNameToSearchHistory(name);
+    */
   }
 }
