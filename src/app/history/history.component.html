@@ -1,3 +1,16 @@
-<p>
-  history works!
-</p>
+<div>
+  <h1>My Search History:</h1>
+
+  <div *ngFor="let history of searchHistory">
+    <h3>
+      {{ history.firstName }} {{ history.lastName }}
+    </h3>
+  </div>
+
+  <!--
+  // there is a unique key for search history
+  <div *ngFor="let search of searchHistory | async">
+    {{search.key}}
+  </div>
+  -->
+</div>

@@ -1,3 +1,37 @@
-<p>
-  dashboard works!
-</p>
+<div>
+  <h2>
+    Please input first name and last name:
+  </h2>
+  <div>
+    <label>First Name:</label>
+    <input type="text" [(ngModel)]="firstName" >
+  </div>
+  <br>
+  <div>
+    <label>Last Name:</label>
+    <input type="text" [(ngModel)]="lastName" >
+  </div>
+  <br>
+  
+  <div *ngIf="message" [ngClass]="{'valid-name-message': isFirstNameValid && isLastNameValid, 'invalid-name-message': !isFirstNameValid || !isLastNameValid}">
+    <h3>
+      {{ message }}
+    </h3>
+  </div>
+  <div *ngIf="addFirstNameMessage" [ngClass]="{'success-message': addFirstNameSucc, 'failure-message': !addFirstNameSucc}">
+    <h3>
+      {{ addFirstNameMessage }}
+    </h3>
+  </div>
+  <div *ngIf="addLastNameMessage" [ngClass]="{'success-message': addLastNameSucc, 'failure-message': !addLastNameSucc}">
+    <h3>
+      {{ addLastNameMessage }}
+    </h3>
+  </div>
+  
+  <br>
+  <div>
+    <button (click)="searchFullName()">Search FullName</button>
+    <button (click)="addName()" [disabled]="disableAddNameBtn">Add Name</button>
+  </div>
+</div>
