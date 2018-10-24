@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HistoryComponent } from './history/history.component';
 
 import { firebaseConfig } from '../environments/environment';
+import { environment } from '../environments/environment';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
@@ -17,6 +18,8 @@ import { LoginService } from './login/login.service';
 import { AppRoutingModule } from './app-routing.module';
 
 import {AuthGuard} from './login/auth.guard';
+import { DashboardService } from './dashboard/dashboard.service';
+import { HistoryService } from './history/history.service';
 
 
 @NgModule({
@@ -29,12 +32,13 @@ import {AuthGuard} from './login/auth.guard';
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     FormsModule,
     AppRoutingModule
   ],
-  providers: [LoginService, AuthGuard],
+  providers: [LoginService, AuthGuard, DashboardService, HistoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
