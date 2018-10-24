@@ -7,32 +7,27 @@ import { DashboardService } from './dashboard.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  searches: any[];
-  //I added this
-  names: any[];
+  firstName: string;
+  lastName: string;
+  inDatabase: boolean;
 
   constructor(private dashboardService: DashboardService) {
-    this.searches = [];
-    //I added this
-    this.names = [];
   }
 
-  searchHistory() {
-    this.dashboardService.getSearchHistory().subscribe( (history: any) => {
-      this.searches = history;
-    });
-  }
-
-  searchFullNames() {
-    console.log("searchFullNames");
+  searchFullNames(firstName: string, lastName: string) {
+    console.log("Dashboard component is calling dashboard service searchFullNames()");
+    this.dashboardService.logSearch(firstName, lastName);
+    this.dashboardService.getName(firstName, lastName).subscribe( inDB => {
+      console.log('inDatabase = ' + inDB);
+      this.inDatabase = inDB;
+      });
   }
 
   addName(firstName: string, lastName: string) {
-    console.log("dashboard  componenet calling dashboard service addName()");
+    console.log("Dashboard component is calling dashboard service addName()");
     this.dashboardService.addName(firstName, lastName);
   }
 
   ngOnInit() {
   }
-
 }

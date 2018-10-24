@@ -8,5 +8,16 @@
     <input type="text" class="form-control" name="firstNameInput" id="lastNameInput" placeholder="Enter last name" #lastNameInput>
   </div>
   <button (click)="addName(firstNameInput.value, lastNameInput.value)" class="btn btn-primary">Add Name</button>
-  <button (click)="searchFullNames()" class="btn btn-primary">Search Full Names</button>
+  <button (click)="searchFullNames(firstNameInput.value, lastNameInput.value)" class="btn btn-primary">Search Full Names</button>
 </form>
+
+<div [ngSwitch]="inDatabase">
+  <div *ngSwitchCase="true">
+    <div class="alert alert-success">{{ firstNameInput.value }} {{ lastNameInput.value }} is a valid name!</div>
+  </div>
+  <div *ngSwitchCase="false">
+    <div class="alert alert-info">No match found for {{ firstNameInput.value }} {{ lastNameInput.value }}.
+      <button (click)="addName(firstNameInput.value, lastNameInput.value)" class="btn btn-primary">Add Name</button>
+    </div>
+  </div>
+</div>
