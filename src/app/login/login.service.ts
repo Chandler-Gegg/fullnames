@@ -25,9 +25,9 @@ export class LoginService {
     .switchMap((user) => {
       if (user) {
         this.userUid = user.uid;
-        console.log('SWITCHMAP');
-        console.log(user);
-        console.log('SWITCHMAP');
+        //console.log('SWITCHMAP');
+        //console.log(user);
+        //console.log('SWITCHMAP');
         return this.db.object(`users/${user.uid}`).update({email: user.email}).then( () => {
           return this.db.object(`users/${user.uid}`).valueChanges();
         }).catch( (error) => {
@@ -44,11 +44,11 @@ export class LoginService {
   loginWithEmail(email: string, password: string) {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((auth) => {
-        console.log(auth.user.uid);
+        //console.log(auth.user.uid);
         const createdAt = firebase.database.ServerValue.TIMESTAMP;
-        console.log('CREATED AT');
-        console.log(createdAt);
-        console.log('CREATED AT');
+        //console.log('CREATED AT');
+        //console.log(createdAt);
+        //console.log('CREATED AT');
         const sessionKey = this.db.database
                         .ref(`sessions`)
                         .push({

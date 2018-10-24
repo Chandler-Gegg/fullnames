@@ -1,3 +1,53 @@
-<p>
-  dashboard works!
-</p>
+
+
+<form class="container p-1">
+  <div class="card p-4">
+    <h4 class="pb-4">Dashboard: Search and Add Names</h4>
+    <div class="form-group">
+      <label for="firstname">First Name:</label>
+      <input name="firstname" id="firstname" #firstname> 
+    </div>
+          
+    <div class="form-group">          
+      <label for="lastname">Last Name:</label>
+      <input name="lastname" id="lastname" #lastname> 
+    </div>
+
+    <div class="form-group">
+
+      <button class="btn btn-outline-primary" 
+      (click)="doSearch(firstname.value, lastname.value)">
+      Search Full Name
+      </button>
+
+      <button class="btn btn-outline-success" 
+      (click)="addName(firstname.value, lastname.value)" 
+      [disabled]="addDisabled">Add Name 
+      </button>
+
+    </div>
+
+    <div class="alert alert-danger alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Note:</strong> First search name, if it is not available then 'Add Name' button will be enabled to add new name in database.
+    </div>
+
+  </div>
+</form>
+
+
+<div *ngIf="nameSearch">
+  <div class="container card" [ngSwitch]="match">
+        <div class="alert alert-success m-2" *ngSwitchCase="true">
+          <h5>{{ firstname.value }} {{ lastname.value }} is valid name.</h5>
+        </div>
+        <div class="container" *ngSwitchCase="false">
+          <h5>Full Name is not found.</h5>
+          <p class="alert alert-info">Add missing name by pressing the button "Add Name".</p>
+        </div>
+  </div>
+</div>
+
+<div class="container card" *ngIf="nameAdded">
+    <p class="alert alert-info">{{ firstname.value }} {{ lastname.value }} has been added to database.</p>
+</div>
