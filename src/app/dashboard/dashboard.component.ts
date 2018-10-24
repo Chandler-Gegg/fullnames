@@ -12,27 +12,30 @@ export class DashboardComponent implements OnInit {
   searches: any[];
   firstValid: boolean;
   lastValid: boolean;
+  showResults: boolean;
   // first and last names are @Input properties so we can reset them to false when user changes fields
-  // (so that 'found ... in database' result doesn't keep showing on name changes)
+  // and reset showResults to false
   private _firstName: string;
   private _lastName: string;
   @Input ('firstName') 
   set firstName(n:string) { 
     this._firstName = n;
-    this.lastValid = this.firstValid = false;
+    this.showResults = false;
   }
   get firstName() {return this._firstName; }
   @Input ('lastName') 
   set lastName(n:string) { 
     this._lastName = n;
-    this.lastValid = this.firstValid = false;
+    this.showResults = false;
   }
   get lastName() {return this._lastName; }
   constructor(private db: AngularFireDatabase, private loginService: LoginService, private dashboardService: DashboardService) {
     //console.log("Dashboard constructor");
     this.searches = [];
+    this.showResults = false;
   }
     addToDB() {
+        this.showResults = false;
         var firsts = this.db.object('firstNames');
         var lasts = this.db.object('lastNames');
         firsts.update( {[this.firstName]:"true"} );
@@ -40,6 +43,8 @@ export class DashboardComponent implements OnInit {
         console.log("Add " + this.firstName + this.lastName + " to DB"); 
     }
   searchDB() {
+    this.showResults = true;
+    this.dashboardService.localHist.push(this.firstName + " " + this.lastName);
     //reset valids to false
     this.firstValid = this.lastValid = false;
     console.log("Search for " + this.firstName + this.lastName + " in DB"); 

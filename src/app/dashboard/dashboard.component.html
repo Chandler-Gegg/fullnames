@@ -6,10 +6,14 @@
 Found {{this.firstName}} in database, but {{this.lastName}} absent. 
 <button (click) = addToDB()>Add "{{this.firstName + "  "}} {{this.lastName}}"</button>
 </div>
-<div *ngIf="!this.firstValid && this.lastValid">
+<div *ngIf="this.showResults && !this.firstValid && this.lastValid">
 Did not find {{this.firstName}} in database, but {{this.lastName}} present. 
 <button (click) = addToDB()>Add "{{this.firstName + "  "}} {{this.lastName}}"</button>
 </div>
-<div *ngIf="this.firstValid && this.lastValid">
+<div *ngIf="this.showResults && this.firstValid && this.lastValid">
 Found {{this.firstName + " " + this.lastName}} in Database!
+</div>
+<div *ngIf="this.showResults && !this.firstValid && !this.lastValid">
+Did not find {{this.firstName + " " }} or {{ " "+this.lastName}} in database. 
+<button (click) = addToDB()>Add "{{this.firstName + "  "}} {{this.lastName}}"</button>
 </div>
