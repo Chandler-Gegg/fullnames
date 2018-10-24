@@ -7,8 +7,6 @@ import { LoginComponent } from './login/login.component';
 import { HistoryComponent } from './history/history.component';
 import { AuthGuard } from './login/auth.guard';
 
-// { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-
 const routes: Routes = [
   // these are the links we see at top of our app
 
