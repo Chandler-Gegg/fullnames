@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LoginService } from '../login/login.service';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { of, concat } from 'rxjs';
 
 @Injectable()
 export class DashboardService {
@@ -14,5 +15,32 @@ export class DashboardService {
 
   getSearchHistory() {
     return this.searchHistoryRef.valueChanges();
+  }
+
+  updateHistory(fName: string, lName: string, operation: string) {
+    var d = new Date();
+    var dformat = [d.getMonth()+1,
+               d.getDate(),
+               d.getFullYear()].join('/')+' '+
+              [d.getHours(),
+               d.getMinutes(),
+               d.getSeconds()].join(':');
+    var d2 = new Date();
+    this.searchHistoryRef.push({ firstName: fName, lastName: lName,
+       action: operation, date: dformat, timestamp: d2.getTime()});
+  }
+
+  search(fName: string, lName: string) {
+      const obs1 = this.db.object(`/firstNames/${fName}`).snapshotChanges();
+      const obs2 = this.db.object(`/lastNames/${lName}`).snapshotChanges();
+      return obs1.switchMap(action1 =>
+        obs2.switchMap(action2 => {
+            return of((action1.payload.val() === true) && (action2.payload.val() === true));
+        }));
+    }
+
+  addName(fName: string, lName: string){
+    this.db.list('/firstNames').set(fName, true);
+    this.db.list('/lastNames').set(lName, true);
   }
 }

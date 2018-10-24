@@ -1,3 +1,17 @@
-<p>
-  dashboard works!
-</p>
+<form (ngSubmit)="search()">
+  <div class="form-group">
+    <label for="firstName">First Name</label>
+    <input type="text" class="form-control" id="firstName" name="fName" required [(ngModel)]='fName'>
+  </div>
+  <div class="form-group">
+    <label for="lastName">Last Name</label>
+    <input type="text" class="form-control" id="lastName" name="lName" required [(ngModel)]='lName'>
+  </div>
+  <button type="submit" class="btn btn-success">Search</button>
+</form>
+
+<form (ngSubmit)="addName()">
+  <button type="submit" class="btn btn-success">Add Name</button>
+</form>
+
+<div id="result"></div>
