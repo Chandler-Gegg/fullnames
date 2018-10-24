@@ -22,18 +22,21 @@ export class DashboardService {
   }
 
   searchFirstName(firstName: string) {
-    return this.db.object(`firstNames/${firstName}`).valueChanges();
+    return this.db.object(`names/first-names/${firstName}`).valueChanges();
+    //return this.db.object(`firstNames/${firstName}`).valueChanges();
   }
 
   searchLastName(lastName: string) {
-    return this.db.object(`lastNames/${lastName}`).valueChanges();
+    return this.db.object(`names/last-names/${lastName}`).valueChanges();
+    //return this.db.object(`lastNames/${lastName}`).valueChanges();
   }
 
   addFirstName(firstName: string) {
     let item = {};
     item[`${firstName}`] = true;
 
-    return this.db.object(`firstNames`).update(item);
+    return this.db.object(`names/first-names`).update(item);
+    //return this.db.object(`firstNames`).update(item);
     //return this.db.object(`firstNames`).update({[name] : true});
   }
 
@@ -41,7 +44,8 @@ export class DashboardService {
     let item = {};
     item[`${lastName}`] = true;
 
-    return this.db.object(`lastNames`).update(item);
+    return this.db.object(`names/last-names`).update(item);
+    //return this.db.object(`lastNames`).update(item);
   }
 
   addNameToSearchHistory(firstName: string, lastName: string) {
