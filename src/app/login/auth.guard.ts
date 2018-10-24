@@ -10,6 +10,7 @@ import { map, take, tap } from 'rxjs/operators';
 export class AuthGuard implements CanActivate {
   constructor(private authService: LoginService, private router: Router) {}
 
+  //this is where we do our verification
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | boolean {
@@ -21,6 +22,7 @@ export class AuthGuard implements CanActivate {
     // console.log(this.auth.isAdmin());
     // console.log('IS ADMIN IS ADMIN IS ADMIN');
 
+    //if user is not authorized, we put them to empty path --> login
     return this.authService.user.pipe(
       take(1),
       map((user) => !!user),

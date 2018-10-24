@@ -42,6 +42,7 @@ export class LoginService {
   }
 
   loginWithEmail(email: string, password: string) {
+    //return a promise
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((auth) => {
         console.log(auth.user.uid);
@@ -49,6 +50,7 @@ export class LoginService {
         console.log('CREATED AT');
         console.log(createdAt);
         console.log('CREATED AT');
+        //get sessionKey from sessions list
         const sessionKey = this.db.database
                         .ref(`sessions`)
                         .push({
@@ -60,7 +62,10 @@ export class LoginService {
           userUid: auth.user.uid,
           currentSessionKey: sessionKey,
         };
-
+        //push this info so we know what time it occurred
+        //cool feature: this is just a giant object of objects--can update different 
+        //parts of it using the paths.
+        //can have multiple payloads at diff paths, and then call update on them all
         const sessionPayloads: any = {};
         sessionPayloads[`currentSession/${auth.user.uid}`] = sessionPayload;
         sessionPayloads[`users/${auth.user.uid}/sessions/${sessionKey}`] = {'createdAt': createdAt};
