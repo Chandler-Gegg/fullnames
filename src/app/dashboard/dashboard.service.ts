@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 export class DashboardService {
   //this will be a reference to our database list
   firstNamesRef: Observable<any>;
+  lastNamesRef: Observable<any>;
   searchHistoryRef: any;
   constructor(
     private loginService: LoginService,
@@ -14,6 +15,7 @@ export class DashboardService {
     ) {
     this.searchHistoryRef = this.db.list(`currentSession/${this.loginService.userUid}/searches`);
     this.firstNamesRef = this.db.list('names').valueChanges();
+    this.lastNamesRef = this.db.list('names').valueChanges();
     this.getFirstNames();
   }
 
@@ -25,8 +27,17 @@ export class DashboardService {
   getFirstNames() {
     //this unpacks our collection so we get back the json object.
     //it's an observable, and it lazy loads, so nothing happens till we subscripbe to it.
-    console.log("dashboard service read from database:");
+    console.log("dashboard service read first names from database:");
     this.firstNamesRef.subscribe((fNames: any[]) => console.log(fNames));
+  }
+
+  getLastNames() {
+    console.log("dashboard service read last names from database: ");
+    this.lastNamesRef.subscribe((lNames: any[]) => console.log(lNames));
+  }
+
+  addName(firstName: string, lastName: string) {
+    console.log("DashboardService adding name %s %s to database.", firstName, lastName);
   }
 }
 
