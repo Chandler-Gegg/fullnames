@@ -7,11 +7,10 @@ import { of } from 'rxjs';
 @Injectable()
 export class DashboardService {
   searchHistoryRef: any;
-  constructor(
-    private loginService: LoginService,
-    private db: AngularFireDatabase,
-    ) {
+  constructor(private loginService: LoginService, private db: AngularFireDatabase) {
     this.searchHistoryRef = this.db.list(`currentSession/${this.loginService.userUid}/searches`);
+    console.log("DASHBOARDSERVICE constructor: ");
+    console.log(`currentSession/${this.loginService.userUid}/searches`);
   }
 
   getSearchHistory() {
@@ -20,6 +19,7 @@ export class DashboardService {
 
   logSearch(firstName: string, lastName: string) {
     this.searchHistoryRef.push({ firstName: firstName, lastName: lastName});
+    console.log(firstName + ' ' + lastName + ' pushed to searchHistoryRef.');
   }
 
   getName(firstName: string, lastName: string) {
