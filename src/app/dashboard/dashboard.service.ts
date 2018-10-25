@@ -12,6 +12,11 @@ export class DashboardService {
     this.searchHistoryRef = this.db.list(`currentSession/${this.loginService.userUid}/searches`);
   }
 
+  recordSearch(firstName: string, lastName: string) {
+    this.searchHistoryRef.push({firstName: firstName, lastName: lastName});
+    console.log('Search of ' + firstName + lastName + ' recorded successfully');
+  }
+
   getSearchHistory() {
     return this.searchHistoryRef.valueChanges();
   }

@@ -1,3 +1,19 @@
-<p>
-  dashboard works!
+<div>Addname button will appear when name is not in Firebase.</div>
+<p> 
+  <input type="text" #newfirst
+     placeholder="Enter First Name Here">
+  <input type="text" #newlast
+     placeholder="Enter Last Name Here">  
+  <button (click)="searchName(newfirst.value, newlast.value)">Search FullName</button>
 </p>
+
+<div [ngSwitch]="nameValid">
+  <div *ngSwitchCase="true">
+    <div>{{newfirst.value}} {{newlast.value}} is a valid name.</div>
+  </div>
+  <div *ngSwitchCase="false">
+    <div> Sorry! we can't find {{newfirst.value}} {{newlast.value}}.
+        <button (click)="addName(newfirst.value,newlast.value)">Add Name</button>
+    </div>
+  </div>
+ </div>       
