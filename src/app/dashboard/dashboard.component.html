@@ -1,3 +1,26 @@
-<p>
-  dashboard works!
-</p>
+<h1>Dashboard Component</h1>
+
+<div>
+  <label>First Name
+    <input [(ngModel)]="inputFirstName" placeholder="inputFirstName">
+    <span *ngIf="firstNameFound">Already in Database</span>
+</label>
+</div>
+<div>
+  <label>Last Name
+    <input [(ngModel)]="inputLastName" placeholder="inputLastName">
+    <span *ngIf="lastNameFound">Already in Database</span>
+  </label>
+</div>
+
+<div>
+  <h2>Full Name</h2>
+  <div>
+    {{inputFirstName}} {{inputLastName}}
+    <span *ngIf="firstNameFound && lastNameFound"> Is a valid name!</span>
+  </div>
+  <button (click)="searchNames()">Search Full Name</button>
+  <!--.btn.disabled-->
+  <!--<button (click)="addNames()" *ngIf="unlistedFirstName() || unlistedLastName()" >Add Name</button>-->
+  <button [ngClass]="{'disabled-button': !canAddNames()}" (click)="addNames()"  >Add Name</button>
+</div>
