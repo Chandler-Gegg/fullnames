@@ -1,3 +1,19 @@
-<p>
-  dashboard works!
-</p>
+<form (ngSubmit)="firstNameSearch()">
+  <span class="form-group">
+    <label for="firstName">First Name</label>
+    <input type="text" class="form-control" id="firstName" name="firstName" required [(ngModel)]="firstName">
+  </span>
+  <span>
+    <button type="submit" class="btn btn-success">Search First Name</button>
+  </span>
+</form>
+
+<form (ngSubmit)="lastNameSearch()">
+  <span class="form-group">
+    <label for="lastName">Last Name</label>
+    <input type="text" class="form-control" id="lastName" name="lastName" required [(ngModel)]="lastName">
+  </span>
+  <span>
+    <button type="submit" class="btn btn-success">Search Last Name</button>
+  </span>
+</form>

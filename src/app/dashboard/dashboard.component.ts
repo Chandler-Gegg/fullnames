@@ -8,17 +8,37 @@ import { DashboardService } from './dashboard.service';
 })
 export class DashboardComponent implements OnInit {
   searches: any[];
+  firstName: any;
+  lastName: any;
+
+
+
+
   constructor(private dashboardService: DashboardService) {
     this.searches = [];
   }
 
   searchHistory() {
-    this.dashboardService.getSearchHistory().subscribe( (history: any) => {
+    this.dashboardService.getSearchHistory().subscribe((history: any) => {
       this.searches = history;
+      console.log(history);
     });
+  }
+
+
+  firstNameSearch() {
+    console.log("Searching in process");
+
+  }
+
+  lastNameSearch() {
+    console.log("Searching in process");
+
+
   }
 
   ngOnInit() {
   }
+
 
 }
