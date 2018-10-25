@@ -1,3 +1,15 @@
-<p>
-  history works!
-</p>
+<div class="container">
+  <div class="card m-1">
+    <div class="card-body">
+      <h4 class="card card-title bg-warning text-center">Search History</h4>
+      <p class="card-text alert alert-success text-dark" *ngFor="let search of searches">
+          First Name: {{ search.firstName }}
+          <br>
+          Last Name: {{ search.lastName }}
+          <br>
+          Entry Date: {{ search.entryDate | date:'medium'}} 
+          <br>
+      </p>
+    </div>
+  </div>
+</div>
