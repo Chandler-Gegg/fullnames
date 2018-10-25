@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.css']
 })
+//use ngFor in template here to display search history data
 export class HistoryComponent implements OnInit {
 
   constructor() { }
