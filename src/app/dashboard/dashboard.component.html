@@ -1,3 +1,36 @@
-<p>
-  dashboard works!
-</p>
+
+
+<form (ngSubmit)="onSearchDatabase()">
+  <div class="form-group">
+    <label for="firstName">First Name</label>
+    <input type="text" class="form-control" id="firstName" name="firstName" required [(ngModel)]="firstName">
+  </div>
+
+  <div class="form-group">
+    <label for="lastName">Last Name</label>
+    <input type="lastName" class="form-control" id="lastName" name="lastName" required [(ngModel)]="lastName">
+  </div>
+
+  <button type="addName" id ="addNameButton" class="btn btn-success" disabled onclick="addData()">ADD NAME</button>
+
+  <button type="searchName" class="btn btn-success">SEARCH FULL NAME</button>
+
+
+
+</form>
+
+
+
+
+  <p id="output" onclick="SearchFirstLastName()"></p>
+
+  <p id="notFound" onclick="displayMessageToAdd()"></p>
+
+  <p id="history" > search name to see history </p>
+
+
+
+
+
+
+
