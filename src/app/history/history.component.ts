@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {DashboardService} from '../dashboard/dashboard.service';
 
 @Component({
   selector: 'app-history',
@@ -6,10 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./history.component.css']
 })
 export class HistoryComponent implements OnInit {
+  searches: any;
 
-  constructor() { }
+  constructor(private dashboardService: DashboardService) {
+    this.searches = [];
+  }
+
+  searchHistory() {
+    this.dashboardService.getSearchHistory().subscribe( (history: any) => {
+      this.searches = history;
+    });
+  }
 
   ngOnInit() {
+    this.searchHistory();
   }
 
 }

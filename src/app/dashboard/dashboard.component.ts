@@ -56,6 +56,10 @@ export class DashboardComponent implements OnInit {
     return (!this.lastNameFound && this.inputLastName);
   }
 
+  canAddNames() {
+    return this.unlistedFirstName() || this.unlistedLastName();
+  }
+
   addNames() {
     if (this.unlistedFirstName()) {
       this.dashboardService.firstNameAdd(this.inputFirstName)
