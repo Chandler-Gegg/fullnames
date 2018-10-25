@@ -11,7 +11,7 @@ export class LoginComponent implements OnInit {
   email: string;
   password: string;
   constructor(
-    private loginService: LoginService,
+    private loginService: LoginService, //normally called authService
     private router: Router,
   ) { }
 
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
         .then(() => this.router.navigate(['/dashboard']))
         .catch( error => {
           console.log(error);
-          this.router.navigate(['/login']);
+          this.router.navigate(['/login']); //UNSUCCESSFUL LOGIN REROUTES TO LOGIN COMPONENT
         });
   }
 }
