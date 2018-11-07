@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from './dashboard.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,12 +9,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DashboardComponent implements OnInit {
   searches: any[];
-  userText = 'Hello world 23';
   constructor(
-    private dashboardService: DashboardService,
-    private http: HttpClient,
+    private dashboardService: DashboardService
     ) {
-      this.http.get(`https://us-central1-boots23-192123.cloudfunctions.net/addMessage?text=${this.userText}`);
     this.searches = [];
 
   }
